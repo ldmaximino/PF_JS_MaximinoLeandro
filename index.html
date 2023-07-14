@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Roboto:wght@400;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <link rel="stylesheet" href="./css/styles.css">
+    <title>Vinoteca - PreEntrega3 JS</title>
+</head>
+
+<body>
+    <header class="header">
+        <!-- Barra de Navegación o Encabezado -->
+        <nav class="nav">
+            <!-- Inicio - Contacto e Icono del Carrito de Compras -->
+            <div class="nav-login">
+                <div class="nav-login-open">
+                    <i class="bi bi-person-circle user-login"></i>
+                    <label class="nombre-user-login" for="nombre"></label>
+                </div>
+                <div class="nav-login-close">
+                    <p id="cierre-sesion" class="cerrar-sesion">Cerrar Sesión</p>
+                </div>
+            </div>
+            
+            <div class="nav-1">
+                <a class="item-nav activo" href="index.html">Inicio</a></li>
+                <a class="item-nav" href="index.html">Contacto</a></li>
+                <a class="item-nav carrito" href="index.html">
+                    <i id="carrito" class="bi bi-cart4"></i>
+                </a>
+            </div>
+
+            <!-- Etiqueta que muestra el total de Productos e Items y el importe total del carrito de Compras. Se muestra arriba a la derecha en la barra de navegación. Al hacer click en dicha etiqueta se puede acceder al carrito -->
+            <div class="totales-carrito">
+                <div class="unidades">
+                    <div class="unidades-productos">
+                        <label for="">Productos:</label>
+                        <span class="productos">0</span>
+                    </div>
+                    <div class="unidades-items">
+                        <label for="">Items:</label>
+                        <span class="items">0</span>
+                    </div>
+
+                </div>
+                <div class="importe-total">
+                    <label for="">Total Compra</label>
+                    <span class="importe">$0.00</span>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main class="main">
+        <h1 class="main-titulo">Vinos Argentinos</h1>
+
+        <!-- Sección de Filtros para buscar productos por nombre o categoría -->
+        <section id="filtros" class="main-filtros">
+            <div class="buscar-producto">
+                <div class="buscar-producto--select">
+                    <label class="filtro-label">Buscar:</label>
+                    <select id="tipo-filtro" class="filtro-tipo">
+                        <option selected value="1">Por Descripción</option>
+                        <option value="2">Por Categoria</option>
+                    </select>
+                </div>
+                <div class="buscar-producto--input">
+                    <input id="texto-filtro" class="filtro-texto" type="text" placeholder="Producto...">
+                    <button id="buscar" class="filtro-buscar">Buscar</button>
+                </div>
+            </div>
+            <div class="alternativo">
+                <p id="texto-alternativo"></p>
+                <p id="total-productos"></p>
+            </div>
+        </section>
+
+        <!-- Formulario de Inicio de Sesión -->
+        <section id="modal-login" class = "modal-login">
+            <section class="modal-login-usuario">
+                <p class="modal-login-titulo">Iniciar Sesión</p>
+                <label class="modal-clase-usuario" for="">
+                    <span class="modal-label">E-Mail</span>
+                    <input id="login-email" name = "login-email" type="text" placeholder="Escriba su E-Mail">
+                </label>
+                <label class="modal-clase-clave" for="">
+                    <span class="modal-label">Clave</span>
+                    <input id="login-clave" name="login-clave" type="password" placeholder="Escriba su clave">
+                </label>
+                <p id="errorLog" class="errorLog">La combinación de E-Mail y clave no existen</p>
+                <button id="button-login" class="button-login">Ingresar</button>
+            </section>
+        </section>
+
+        <!-- Formulario Modal del Carrito de Compras -->
+        <section class="modal">
+            <div class="modal-container">
+                <a href="#" class="modal-close">X</a>
+                <div class="modal-container-titulo">
+                    <h2>Carrito de Compras</h2>
+                    <i class="bi bi-cart4 modal-container-titulo-carrito"></i>
+                </div>
+                
+                <div class="modal-subtotal-carrito">
+                        <span class="modal-subtotal-carrito-1">Total Productos:</span>
+                        <span class="modal-subtotal-carrito-2"></span>
+                        <span class="modal-subtotal-carrito-3"></span>
+                </div>
+                <div class="modal-pie">
+                    <button id="finalizar-compra" class="finalizar-compra">Finalizar Compra</button>
+                    <button id="vaciar-carrito" class="vaciar-carrito">Vaciar</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Formulario Modal para Finalizar la Compra -->
+        <section class="modal-fincompra">
+            <div class="modal-fincompra-container">
+                <div class="modal-fincompra-titulo">
+                    <h2>Finalizar Compra</h2>
+                    <a href="#" class="close-fincompra">X</a>
+                </div>
+                <!-- Datos de la Persona -->
+                <div class="modal-fincompra-datospersona">
+                    <h3>Datos de la persona</h3>
+                    <label for="nombre">Nombre</label>
+                    <input id="nombre" type="text" placeholder="Nombre..." class="input-style">
+                    <label for="apellido">Apellido</label>
+                    <input id="apellido" type="text" placeholder="Apellido..." class="input-style">
+                    <label for="email">E-Mail</label>
+                    <input id="email" type="email" placeholder="correo..." class="input-style">
+                    <label for="domicilio">Domicilio</label>
+                    <input id="domicilio" type="text" placeholder="Calle - Nro - Barrio..." class="input-style">
+                    <label for="ciudad">Ciudad</label>
+                    <input id="ciudad" type="text" placeholder="Ciudad..." class="input-style">
+                </div>
+                <!-- Forma de Pago -->
+                <div class="modal-fincompra-datospago">
+                    <h3>Forma de Pago</h3>
+                    <div class="total-apagar">
+                        <p class="etiqueta-totalapagar">Importe de la Compra:</p>
+                        <span class="importe-totalapagar">$0.00</span>
+                    </div>
+                    <div class="total-fpago">
+
+                        <select class="formapago">
+                            
+                        </select>
+                        <p id="descripcion-fpago"></p>
+                    </div>
+                </div>
+                <!-- Botón para Finalizar Compra -->
+                <div class="modal-fincompra-pie">
+                    <button class="finalizar-pago">Realizar el Pago</button>
+                </div>
+                <!-- Link para volver al carrito de compras -->
+                <a href="#" class="volver-carrito">Volver al Carrito</a>
+            </div>
+        </section>
+
+        <!-- Sección donde se muetran todos los productos de la base de datos bdProductos -->
+        <section id="productos" class="main-productos">
+
+        </section>
+
+        <div class="container-carrito-fijo">
+            <div class="carrito-fijo">
+                <a href="#" class="bi bi-cart4"></a>
+            </div>
+            
+        </div>
+    </main>
+
+    <footer>
+        <div class="pie">
+            <span>Todos los derechos reservados</span>
+        </div>
+    </footer>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.11/dist/sweetalert2.all.min.js"></script>
+    <script src="./js/index.js" type="module"></script>
+
+</body>
+</html>
