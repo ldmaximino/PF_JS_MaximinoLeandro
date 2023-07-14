@@ -4,29 +4,41 @@ import { bdFPago } from "./bdFPago.js"; //Base de datos opciones de pago
 import { bdUsuariosInt } from "./bdUsuarios.js";
 
 //------------------------------------------------------------------- DECLARACION DE VARIABLES Y CONSTANTES ----------------------------------------------
-const textoAlternativo = document.getElementById('texto-alternativo');
-const cantidadProdEncontrados = document.getElementById('total-productos');
-const seccionProductos = document.getElementById("productos");
-const textoABuscar = document.querySelector("#texto-filtro");
-const buscarProducto = document.querySelector("#buscar");
-const tipoFiltro = document.querySelector("#tipo-filtro");
-const carrito = document.querySelector(".carrito");
+
+const seccionProductos = document.getElementById("productos"); //Sección productos
+
+//Sección Filtros
+const textoAlternativo = document.getElementById('texto-alternativo'); //texto alternativo del filtro
+const cantidadProdEncontrados = document.getElementById('total-productos'); //productos encontrados del filtro
+const textoABuscar = document.querySelector("#texto-filtro"); //texto del filtro
+const buscarProducto = document.querySelector("#buscar"); //botón buscar del filtro
+const tipoFiltro = document.querySelector("#tipo-filtro"); //dropdown tipo de filtro
+
+const carrito = document.querySelector(".carrito"); //Carrito de compras del medio de la barra de navegación
+
+//Totales carrito que se muestra en la barra de navegación arriba a la derecha
 const totalesCarrito = document.querySelector(".totales-carrito");
-const modal = document.querySelector(".modal");
-const modalContainer = document.querySelector(".modal-container");
-const modalContainerTitulo = document.querySelector(".modal-container-titulo");
-const modalLogin = document.querySelector(".modal-login");
-const cerrarModal = document.querySelector(".modal-close");
-const vaciarCarrito = document.querySelector("#vaciar-carrito");
-const finalizarCompra = document.querySelector("#finalizar-compra");
-const modalFinCompra = document.querySelector(".modal-fincompra");
-const cerrarFinCompra = document.querySelector(".close-fincompra");
-const volverAlCarrito = document.querySelector(".volver-carrito");
-const selectFPago = document.querySelector(".formapago");
-const finalizarPago = document.querySelector(".finalizar-pago");
+
+//Formulario Modal carrito de compras
+const modal = document.querySelector(".modal"); //Modal Carrito de Compras
+const modalContainer = document.querySelector(".modal-container"); //Container carrito de compras
+const modalContainerTitulo = document.querySelector(".modal-container-titulo"); //Título carrito de compras
+const cerrarModal = document.querySelector(".modal-close"); //Cerrar carrito de compras
+const vaciarCarrito = document.querySelector("#vaciar-carrito"); //Botón para vaciar carrito de compras
+const finalizarCompra = document.querySelector("#finalizar-compra"); //botón para finalizar compra
+
+//Formulario Modal para finalizar la compra - Datos personales y forma de pago
+const modalFinCompra = document.querySelector(".modal-fincompra"); //Modal Finalizar Compra
+const cerrarFinCompra = document.querySelector(".close-fincompra"); //Cerrar modal finalización compra
+const volverAlCarrito = document.querySelector(".volver-carrito"); //Link para volver al carrito cuando se está en el modal de finalización de la compra
+const selectFPago = document.querySelector(".formapago"); //dropdown para seleccionar las opciones de pago
+const finalizarPago = document.querySelector(".finalizar-pago"); //botón para realizar el pago
+
+//Carrito fijo en la parte inferior derecha
 const carritoFijo = document.querySelector(".carrito-fijo");
 
 //Formulario de Login
+const modalLogin = document.querySelector(".modal-login"); //Modal Login
 const usuarioEmail = document.getElementById('login-email'); //input donde se ingresa el e-mail al momento del login
 const usuarioClave = document.getElementById('login-clave'); //input donde se ingresa la clave al momento del login
 const buttonLogin = document.getElementById('button-login'); //botón 'Ingresar' del formulario Login que tiene
