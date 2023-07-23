@@ -18,10 +18,10 @@
     <header class="header">
         <!-- Barra de Navegación o Encabezado -->
         <nav class="nav">
-            <!-- Inicio - Contacto e Icono del Carrito de Compras -->
+            <!-- Icono Login - Productos(Todos) - Ofertas e Icono del Carrito de Compras -->
             <div class="nav-login">
                 <div class="nav-login-open">
-                    <i class="bi bi-person-circle user-login"></i>
+                    <i class="bi bi-person-circle user-login-off"></i>
                     <label class="nombre-user-login" for="nombre"></label>
                 </div>
                 <div class="nav-login-close">
@@ -30,8 +30,8 @@
             </div>
             
             <div class="nav-1">
-                <a class="item-nav activo" href="index.html">Inicio</a></li>
-                <a class="item-nav" href="index.html">Contacto</a></li>
+                <a id="nav-productos" class="item-nav activo" href="#">Productos</a></li>
+                <a id="nav-ofertas" class="item-nav" href="#">Ofertas</a></li>
                 <a class="item-nav carrito" href="index.html">
                     <i id="carrito" class="bi bi-cart4"></i>
                 </a>
@@ -96,6 +96,32 @@
                 </label>
                 <p id="errorLog" class="errorLog">La combinación de E-Mail y clave no existen</p>
                 <button id="button-login" class="button-login">Ingresar</button>
+                <a id="crearCuenta" class="crearCuenta">Crear una Cuenta</a>
+            </section>
+        </section>
+
+        <!-- Formulario de Alta de Nuevo Usuario -->
+        <section id="modal-nuevoUsuario" class = "modal-nuevoUsuario">
+            <section class="modal-nuevoUsuario-usuario">
+                <p class="modal-nuevoUsuario-titulo">Crear una Cuenta</p>
+                <label class="modal-clase-nuevoEmail" for="">
+                    <span class="modal-label-nuevoUsuario">E-Mail</span>
+                    <input id="nuevoUsuario-email" name = "nuevoUsuario-email" type="text" placeholder="Escriba su E-Mail">
+                </label>
+                <label class="modal-clase-nuevoNombre" for="">
+                    <span class="modal-label-nuevoNombre">Nombre</span>
+                    <input id="nuevoUsuario-nombre" name = "nuevoUsuario-nombre" type="text" placeholder="Escriba su Nombre">
+                </label>
+                <label class="modal-clase-nuevaClave" for="">
+                    <span class="modal-label-nuevoUsuario">Clave</span>
+                    <input id="nuevoUsuario-clave" name="nuevoUsuario-clave" type="password" placeholder="Escriba su clave">
+                </label>
+                <label class="modal-clase-reIngreseClave" for="">
+                    <span class="modal-label-nuevoUsuario">Reingrese la Clave</span>
+                    <input id="nuevoUsuario-reIngreseClave" name="nuevoUsuario-reIngreseClave" type="password" placeholder="Reingrese su clave">
+                </label>
+                <p id="errorLog-nuevoUsuario" class="errorLog-nuevoUsuario">..</p>
+                <button id="button-nuevoUsuario" class="button-nuevoUsuario">Crear Cuenta</button>
             </section>
         </section>
 

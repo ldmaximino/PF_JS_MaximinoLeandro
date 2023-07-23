@@ -1,4 +1,4 @@
-export const bdUsuariosInt = [
+export let bdUsuariosInt = [
     {
         email: "juliaAl@gmail.com",
         clave: "1234",

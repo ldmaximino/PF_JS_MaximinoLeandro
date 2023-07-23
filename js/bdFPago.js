@@ -1,3 +1,11 @@
+/*
+FORMAS DE PAGO
+nombre   : se utiliza para mostrar el nombre en la lista desplegable de las formas de pago
+cuotas   : se utiliza para hacer el cálculo y mostrar el precio por cada una de las cuotas
+tasa     : se utiliza para calcular el interés y mostrar el importe final de cada cuota
+detalles : algunos tipo de carteras (ej. cuentas bancarias) muestran el cbu al cual el cliente debe transferir si selecciona la opción.
+           El CBU es mostrado en una etiqueta debajo de la lista desplegable donde se seleccionó la opción 'Transf Bancaria'.
+*/
 export const bdFPago = [
     {
         codigo: "E1",
