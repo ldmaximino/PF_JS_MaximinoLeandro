@@ -130,6 +130,9 @@ export const cargaCarritoLS = () => {
 };
 
 //Actualiza la clave "micarrito" en el localStorage
+/**
+ * @param {Object} miCarrito => recibe el objeto miCarrito que contiene todos los productos agregados al mismo 
+ */
 const seteaCarritoLS = (miCarrito) => {
     localStorage.setItem("micarrito", JSON.stringify(miCarrito));
     actualizaTotalesCarrito(miCarrito); //actualiza total carrito
@@ -141,6 +144,9 @@ const leeLogin = () => {
 };
 
 //actualiza Totales del Carrito en el menú superior a la derecha
+/**
+ * @param {Object} miCarrito => recibe el objeto miCarrito que contiene todos los productos agregados al mismo 
+ */
 const actualizaTotalesCarrito = (miCarrito) => {
     const totalProductos = document.querySelector(".productos");
     const totalItems = document.querySelector(".items");
@@ -158,6 +164,7 @@ const actualizaTotalesCarrito = (miCarrito) => {
         return totalAcum + valorActual.getCantidad();
     }, 0);
     totalItems.textContent = totalItemsCarrito;
+    actualizaContadorCarrito(totalItemsCarrito); //actualiza el contador del carrito
     totalItemsSubTotalCarrito.textContent = totalItemsCarrito; //total items del subtotal del carrito de compras
     //obtiene importe total del carrito
     const totalImporteCarrito = miCarrito.reduce((totalAcum, valorActual) => {
@@ -166,6 +173,20 @@ const actualizaTotalesCarrito = (miCarrito) => {
     totalFinalCarrito = totalImporteCarrito;
     totalImporte.textContent = '$ ' + totalImporteCarrito.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 });
     totalImporteSubTotalCarrito.textContent = '$ ' + totalImporteCarrito.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 }); //total importe del subtotal del carrito
+};
+
+//actualiza el contador del carrito
+/**
+ * 
+ * @param {Number} items => recibe la cantidad de items que contiene el carrito de compras
+ */
+const actualizaContadorCarrito = (items) => {
+    const carritoContadorItems = document.querySelector(".carrito-contador");
+    const carritoContadorNavItems = document.querySelector(".carrito-contador-nav");
+    carritoContadorItems.textContent= items;
+    carritoContadorNavItems.textContent=items;
+    (items > 0) ? (carritoContadorItems.style.display="block") : (carritoContadorItems.style.display="none");
+    (items > 0) ? (carritoContadorNavItems.style.display="block") : (carritoContadorNavItems.style.display="none");
 };
 
 const modalShowToggleCarrito = () => {
@@ -186,6 +207,17 @@ const modalShowToggleNuevoUsuario = () => {
 
 //* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *  F U N C I O N E S   D E L   M E N U   N A V E G A C I O N   * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * 
 //Muestra los productos disponibles para la venta en el DOM generando los elementos HTML
+/**
+ * @typedef {Object} productos => recibe el array de objetos de todos los productos para vender
+ * @property {String} codigo => código del producto
+ * @property {String} nombre => nombre del producto
+ * @property {String} categoria => categoría 'Vinos', 'Espumantes', 'Whisky', 'Cervezas'
+ * @property {Number} precio => precio de lista del producto
+ * @property {String} url => ubicación de la imagen del producto
+ * @property {[Number, String]} oferta => [Descuento , Color] guarda el porcentaje de descuento para el producto (>=0) y el código de color con el que se muestra la oferta
+ * 
+ * @param {String} textoProductosEncontrados => recibe un texto por defecto, el cual luego puede ser cambiado en la función
+ */
 export const cargarProductos = (productos,textoProductosEncontrados="Productos Encontrados: ") => {
     borrarArticulos();
     if (productos.length === 0) { //si el array de productos no contiene datos se muestra un mensaje que indica la no existencia productos.
@@ -261,29 +293,6 @@ export const cargarProductos = (productos,textoProductosEncontrados="Productos E
                 //                                 <p class="articulo-oferta">{el.oferta[0]}% off</p>
                 //                             </div>
             };
-            
-            ////////////////////////////////   ESTE CODIGO SE UTILIZARÍA CON LA PROPIEDAD INNERHTML ///////////////////////////////////
-                    //if(el.oferta[0]===0) {//
-                    //    articulo.innerHTML = ` 
-                    //                        <div class="articulo-img"><img src="${el.url}" alt="${el.nombre}"></div>
-                    //                        <div class="articulo-informacion">
-                    //                            <p class="articulo-nombre">${el.nombre}</p>
-                    //                            <p class="articulo-precio">$${precioFormateado}</p>
-                    //                        </div>`
-                    // }
-                    // else {
-                    //     articulo.innerHTML = ` 
-                    //                         <div class="articulo-img"><img src="${el.url}" alt="${el.nombre}"></div>
-                    //                         <div class="articulo-informacion">
-                    //                             <div class="articulo-nombre">${el.nombre}</div>
-                    //                             <div class="articulo-linea-precio">
-                    //                                 <p class="articulo-precio-anterior">$${precioFormateado}</p>
-                    //                                 <p class="articulo-precio">$${precioFormateado}</p>
-                    //                                 <p class="articulo-oferta">30% off</p>
-                    //                             </div>
-                    //                         </div>`
-                    // };
-            /////////////////////////////////////////////////////////
 
             //Se crea el elemento button para Comprar
             const botonComprar = document.createElement('button');
@@ -308,12 +317,35 @@ const borrarArticulos = () => {
 };
 
 //Agrega productos al carrito, previa verificación si el producto ya existe. En ese caso se suma 1 a la cantidad. Si no existe se crea una instancia u objeto invocando a la función actualizaMiCarrito
+/**
+ * Agrega productos al carrito de compras
+ * @param {String} codigo => recibe el código del producto
+ * @param {String} nombre => recibe el nombre del producto
+ * @param {Number} precio => recibe el precio del producto
+ */
 const agregaArticulo = (codigo, nombre, precio) => {
     let cantidad = verificaCantidadEnCarrito(codigo); //verifica si el código ya existe en el carrito y devuelve la cantidad
     actualizaMiCarrito(codigo, nombre, precio, cantidad);
 };
 
+//Resta artículo del carrito
+/**
+ * 
+ * @param {String} codigo => recibo el código del producto 
+ */
+const restaArticulo = (codigo) => {
+    let cantidad = verificaCantidadEnCarrito(codigo); //verifica si el código ya existe en el carrito y devuelve la cantidad
+    const indice = miCarrito.findIndex((producto) => producto.getCodigo() === codigo); //Si el método 'findIndex' encuentra el registro indice va a ser igual o mayor a cero, de lo contrario es -1
+    (indice >= 0) && miCarrito[indice].setCantidad(cantidad - 1) //Actualiza la cantidad del producto en el carrito restando 1.
+    seteaCarritoLS(miCarrito);
+    alertAgregado('success', 'Se quitó una unidad.', '#dd710c');    
+};
+
 //Verifica si el producto existe en el carrito. Si existe retorna o devuelve la cantidad de ese producto agregada al carrito y si no lo encuentra devuelve cero.
+/**
+ * @param {String} codigo => código del producto
+ * @returns 
+ */
 const verificaCantidadEnCarrito = (codigo = '') => {
     if (miCarrito.length === 0) return 0; //Si el carrito está vacío, retorna 0
     const buscar = miCarrito.find((producto) => producto.getCodigo() === codigo);
@@ -322,13 +354,19 @@ const verificaCantidadEnCarrito = (codigo = '') => {
 };
 
 //Actualiza cantidad de un producto existente o agrega un producto al carrito
+/**
+ * @param {String} codigo => código del producto 
+ * @param {String} nombre => nombre del producto
+ * @param {Number} precio => precio
+ * @param {Number} cantidad => cantidad agregada
+ */
 const actualizaMiCarrito = (codigo, nombre, precio, cantidad) => {
     const indice = miCarrito.findIndex((producto) => producto.getCodigo() === codigo);
     (indice >= 0) //Si el método 'findIndex' encuentra el registro indice va a ser igual o mayor a cero, de lo contrario es -1
         ? miCarrito[indice].setCantidad(cantidad + 1) //Actualiza la cantidad del producto en el carrito sumando 1.
         : miCarrito.push(new CarritoCompra(codigo, nombre, 1, precio)); //Se agrega el producto en el carrito
     seteaCarritoLS(miCarrito);
-    alertAgregado('success', 'producto agregado', '#dd710c');
+    alertAgregado('success', 'Producto agregado', '#dd710c');
 };
 
 //Alerta de Producto Agregado al Carrito
@@ -337,6 +375,7 @@ const alertAgregado = (icono, titulo, colorFondo) => {
         icon: icono, // success
         title: titulo, // agregado
         background: colorFondo, // #34b555
+        width:300
     });
 };
 
@@ -347,7 +386,7 @@ const Toast = Swal.mixin({
     showConfirmButton: false,
     width: 300,
     color: 'whitesmoke',
-    timer: 1000,
+    timer: 800,
     timerProgressBar: true,
 });
 
@@ -364,13 +403,16 @@ const muestraCarritoCompras = () => {
         alertaCarritoVacio(0, false);
     }
     else {
-        limpiaHtmlCarrito();
         modalShowToggleCarrito();
         agregaHtmlCarrito(miCarrito); //Crea el html para los productos que se encuentran en el carrito
     }
 };
 
 //Avisa que el carrito está vacío en el caso que se quiera acceder por las 3 vías de acceso existentes (Carrito del Menú, Totalizador del Carrito del menú (arriba-derecha) y el carrito flotante (abajo-derecha))
+/**
+ * @param {Number} miliSeg => cantidad de milisegundos para ocultarse 
+ * @param {Boolean} ocultaModal => false para mostrar el alerta de carrito vacío.
+ */
 const alertaCarritoVacio = (miliSeg, ocultaModal) => {
     setTimeout(() => {
         (ocultaModal) && modalShowToggleCarrito();
@@ -397,6 +439,7 @@ const limpiaHtmlCarrito = () => {
 
 //HTML CARRITO. Crea el código html dinámico del carrito de compras
 const agregaHtmlCarrito = (miCarrito) => {
+    limpiaHtmlCarrito();
     const miCarritoOrdenado = miCarrito.slice().sort(function (a, b) {
         return miCarrito.indexOf(b) - miCarrito.indexOf(a);
     });
@@ -412,9 +455,13 @@ const agregaHtmlCarrito = (miCarrito) => {
         producto.innerHTML = ` 
                             <img class="modal-productos-img" src="${urlProducto.url}" alt="${el.getNombre()}"></img>
                             <span class="modal-productos-col1">${el.getNombre()}</span>
-                            <span class="modal-productos-col2">${el.getCantidad()}</span>
+                            <div class="modal-productos-col2-div">
+                                <span class="modal-productos-col2-resta">-</span>
+                                <span class="modal-productos-col2">${el.getCantidad()}</span>
+                                <span class="modal-productos-col2-suma">+</span>
+                            </div>
                             <span class="modal-productos-col3">${precioUnitFormateado}</span>
-                            <span class="modal-productos-col3">${precioTotalFormateado}</span>
+                            <span class="modal-productos-col3Total">${precioTotalFormateado}</span>
                             <a class="modal-productos-eliminar" href="#">X</a>
                             </div>`
 
@@ -425,6 +472,7 @@ const agregaHtmlCarrito = (miCarrito) => {
             confirmaEliminarProducto(miCarrito, el.codigo, el.nombre); user - login
         });
 
+        sumaYrestaCantidad(el); //suma y resta cantidad del producto a través de los signos '+' y '-'
     });
 };
 
@@ -433,6 +481,11 @@ const buscaURLProducto = ((codigoProducto) => {
 });
 
 //solicita la confirmación para eliminar un producto agregado al carrito
+/**
+ * @param {Object} miCarrito => contenido del carrito
+ * @param {String} codigoProducto => código del producto 
+ * @param {String} nombreProducto => nombre del producto 
+ */
 const confirmaEliminarProducto = (miCarrito, codigoProducto, nombreProducto) => {
     //Confirma la eliminación?
     const urlProducto = buscaURLProducto(codigoProducto);
@@ -464,6 +517,10 @@ const confirmaEliminarProducto = (miCarrito, codigoProducto, nombreProducto) => 
 };
 
 //borra un producto del carrito
+/**
+ * @param {Object} miCarrito => contenido del carrito
+ * @param {String} codigoProducto => código del producto 
+ */
 const borraProducto = (miCarrito, codigoProducto) => {
     //busco el indice correspondiente al objeto
     let index = miCarrito.findIndex((objeto) => {
@@ -483,13 +540,48 @@ const borraProducto = (miCarrito, codigoProducto) => {
     }
 };
 
+//suma y resta la cantidad del producto con los signos '+' y '-'
+const sumaYrestaCantidad = ((el) => {
+    const cantidadProducto = document.querySelector(".modal-productos-col2"); //obtiene el elemento cantidad producto
+    const precioTotalProducto = document.querySelector(".modal-productos-col3Total"); //obtiene el elemento cantidad producto
+    //resta cantidad del producto
+    const restaCantidad = document.querySelector(".modal-productos-col2-resta");
+    //evento "click" de la resta del producto
+    restaCantidad.addEventListener("click", () => {
+        if(el.getCantidad() != 1){
+            restaArticulo(el.getCodigo());
+            cantidadProducto.textContent= el.getCantidad();
+            let precioTotalFormateado = (el.getPrecio() * el.getCantidad()).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 }); //da formato al precio total
+            precioTotalProducto.textContent = precioTotalFormateado;
+        }
+    });
+    //suma cantidad del producto
+    const sumaCantidad = document.querySelector(".modal-productos-col2-suma");
+    //evento "click" de la suma del producto
+    sumaCantidad.addEventListener("click", () => { 
+        agregaArticulo(el.getCodigo(),el.getNombre(),el.getPrecio());   
+        cantidadProducto.textContent= el.getCantidad();   
+        let precioTotalFormateado = (el.getPrecio() * el.getCantidad()).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 }); //da formato al precio total
+        precioTotalProducto.textContent = precioTotalFormateado;
+    });
+});
+
 //* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *  *  F U N C I O N E S   D E L   I C O N O   D E   L O G I N   D E L   U S U A R I O   * * * * * * * * * * *  * * * * * * * * * * * * * * * * * * * * * * * * 
 //Setea la clave "isLogin" del localStorage. Esta clave contiene el valor "true" si el usuario ya está logueado o "false" de lo contrario.
+/**
+ * @param {Boolean} opcion => true para cuando el usuario está logueado o false para cuando no
+ * @param {String} nombreUsuario => nombre del usuario que se logueó
+ * @param {String} emailUsuario => email registrado del usuario que se logueó
+ */
 const setLogin = (opcion, nombreUsuario, emailUsuario) => {
     localStorage.setItem("Auth", JSON.stringify({ isLogin: opcion, nombre: nombreUsuario, email: emailUsuario }));
 };
 
 //Cambia el color del ícono login: orange cuando el usuario está logueado y white cuando no lo está.
+/**
+ * @param {String} arg1 => nombre de la clase css
+ * @param {String} arg2 => nombre de la clase css
+ */
 const cambiaColorIconoLogin = (arg1,arg2) => {
     usuarioLogin.classList.add(arg1);
     usuarioLogin.classList.remove(arg2);
@@ -530,7 +622,7 @@ const validaIngreso = () => {
 const agregaHtmlFPago = () => {
     completaEMail();
     const totalAPagar = document.querySelector(".importe-totalapagar");
-    totalAPagar.textContent = totalFinalCarrito.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    totalAPagar.textContent = `$ ${totalFinalCarrito.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
     //agrega la opción 'Seleccione una opción...' a la lista para obligar al usuario a seleccionar una forma de pago
     const opt = document.createElement('option');
     opt.disabled = true;
@@ -599,6 +691,12 @@ const completaEMail = () => {
 //* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *  *  F U N C I O N E S   F O R M U L A R I O   D E   P A G O   * * * * * * * * * * *  * * * * * * * * * * * * * * * * * * * * * * * * 
 
 //Valida la forma de pago
+/**
+ * Realiza la validación de la forma de pago
+ * @param {Number} opcionSel => recibe la opción de pago seleccionada 
+ * @param {Number} value => recibe el código correspondiente a la forma de pago seleccionada, el código está en bdFPago.js
+ * @returns 
+ */
 const validaFPago = (opcionSel, value) => {
     if (opcionSel === 0) return alertaDatosIngresados('Debe seleccionar una forma de pago.') && false;
     const buscar = bdFPago.find((el) => el.codigo === value);
@@ -704,8 +802,14 @@ const confirmaCompra = () => {
 const compraExitosa = () => {
     miCarrito.splice(0); // al confirmarse la compra se borra el array de miCarrito
     seteaCarritoLS(miCarrito); // y se actualiza el localstorage
-    return Math.floor(Math.random() * 90000) + 10000; //genera un nro aleatorio de 5 dígitos para devolverlo como nro de orden de compra
+    let numOrden = Math.floor(Math.random() * 90000) + 10000; //genera un nro aleatorio de 5 dígitos para devolverlo como nro de orden de compra
+    const nombre = document.querySelector("#nombre");
+    let mensaje = `Se ha generado la orden de compra número ${numOrden}. ${nombre.value}, gracias por confiar en nosotros.`;
+    saludosDeVoz(mensaje);
+    return numOrden;
 };
+
+const saludosDeVoz = (mensaje) => speechSynthesis.speak(new SpeechSynthesisUtterance(mensaje)); //Emite un saludo(voz) de agradecimiento por la compra
 
 //* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *  *  F U N C I O N E S   D E L   F O R M U L A R I O   L O G I N   U S U A R I O   * * * * * * * * * * *  * * * * * * * * * * * * * * * * * * * * * * * * 
 //Valida usuario y clave en el login
@@ -737,6 +841,12 @@ const validaUser = async () => {
 };
 
 //Si el usuario existe en el array interno o en la api, se produce el ingreso
+/**
+ * 
+ * @param {String} nombreUsuario => nombre del usuario que se logueó
+ * @param {String} emailUsuario => email del usuario que se logueó
+ * @param {Number} opc => 0 = cuando el usuario ya existe en la bd y se loguea  // 1 = cuando el usuario se crea en la bd y se loguea
+ */
 const bienvenidaUser = (nombreUsuario, emailUsuario, opc) => {
     let texto =(opc===0) ? `Hola ${nombreUsuario}, ingresaste a tu cuenta!!` : `Hola ${nombreUsuario}, tu cuenta ha sido creada. Accediendo...`;
     Swal.fire({
@@ -747,6 +857,7 @@ const bienvenidaUser = (nombreUsuario, emailUsuario, opc) => {
         timer: 1100
     })
     setTimeout(() => {
+        (modal.classList.contains('modal--show')) && modal.classList.remove('modal--show');
         setLogin(true, nombreUsuario, emailUsuario); //graba Auth = { isLogin: true, nombre: "Juan", email: "juan@gmail.com"} en el localStorage
         modalShowToggleLogin(); //oculta el formulario modal del login
         (opc===1) && modalShowToggleNuevoUsuario(); //oculta el formulario modal del nuevo usuario
@@ -774,6 +885,7 @@ const muestraNombreUsuario = (nombreUsuario) => {
     nombreUser.textContent = nombreUsuario;
     modalShowToggleCerrarSesion();
     cambiaColorIconoLogin('user-login-on','user-login-off');
+    saludosDeVoz(`Hola ${nombreUsuario}`);
 };
 
 //* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *  *  F U N C I O N E S   D E L   F O R M U L A R I O   N U E V O   U S U A R I O   * * * * * * * * * * *  * * * * * * * * * * * * * * * * * * * * * * * * 

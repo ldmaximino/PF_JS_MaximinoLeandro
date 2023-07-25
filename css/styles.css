@@ -104,6 +104,7 @@ a {
     font-weight: bold;
 }
 .item-nav {
+    display:flex;
     align-self:center;
     padding:28px;
 }
@@ -161,30 +162,6 @@ a {
     border-radius: 5px;
 }
 
-/* --------------------------------- CARRITO FLOTANTE --------------------------------------- */
-.container-carrito-fijo {
-    position:fixed;
-    bottom:55px;
-    right: 55px;
-}
-.carrito-fijo a {
-    display: block;
-    text-decoration: none;
-    background-color: green;
-    color:white;
-    width: 50px;
-    height: 50px;
-    line-height: 50px;
-    text-align: center;
-    border-radius:50%;
-    box-shadow: 0px 1px 10px rgba(0,0,0,0.4);
-    transition: all 500ms ease;
-    font-size: 2rem;
-}
-.carrito-fijo a:hover {
-    background-color: white;
-    color:green;
-}
 /* -------------------------------------------------------- MAIN -------------------------------------------------------- */
 .main {
     background-color: rgb(252, 252, 252);
@@ -419,7 +396,7 @@ a {
     flex-direction: row;
     justify-content: center;
     align-items: center;
-    font-size:0.8rem;
+    font-size:0.6rem;
     font-weight: bold;
     background-color: white;
     padding: 0.5em 0.4em;
@@ -428,20 +405,29 @@ a {
     border: 1px solid orange;
 }
 .modal-productos-img {
-    width: 20px;
+    width: 0px;
 }
 .modal-productos-col1 {
     margin-left:0.2em;
     text-align: left;
     width:150px;
 }
+.modal-productos-col2-resta {
+    color:gray;
+    cursor:pointer;
+}
+.modal-productos-col2-suma {
+    color:gray;
+    cursor:pointer;
+}
 .modal-productos-col2 {
     text-align: center;
     width:50px;
 }
-.modal-productos-col3 {
+.modal-productos-col3,
+.modal-productos-col3Total {
     text-align: right;
-    width:150px;
+    width:70px;
 }
 .modal-productos-eliminar {
     color: red;
@@ -475,7 +461,7 @@ a {
     justify-content: flex-start;
     align-items: center;
     color: white;
-    font-size:0.8rem;
+    font-size:0.6rem;
     font-weight: bold;
     background-color: rgb(221, 80, 24);
     padding: 0.2em 0.2em;
@@ -486,7 +472,7 @@ a {
 .modal-subtotal-carrito-1 {
     margin-left:0.5em;
     text-align: left;
-    width:220px;
+    width:165px;
 }
 .modal-subtotal-carrito-2 {
     text-align: center;
@@ -494,7 +480,7 @@ a {
 }
 .modal-subtotal-carrito-3 {
     text-align: right;
-    width: 150px;
+    width: 118px;
     margin-right: 40px
 }
 
@@ -974,7 +960,35 @@ a {
 .errorLog-nuevoUsuario--show {
     opacity: 1;
 }
-
+.carrito-contador {
+    display:none;
+    position: fixed;
+    top:76vh;
+    right: 45px;
+    color:white;
+    text-align: center;
+    background-color: rgb(250, 112, 0);
+    padding: 0px;
+    border: 1px solid green;
+    border-radius: 50%;
+    height:25px;
+    width: 25px;
+    font-size: 15px;
+    font-weight: bold;
+}
+.carrito-contador-nav {
+    display:none;
+    color:white;
+    text-align: center;
+    background-color: rgb(250, 112, 0);
+    padding: 0px;
+    border: 1px solid green;
+    border-radius: 50%;
+    height:20px;
+    width: 20px;
+    font-size: 12px;
+    font-weight: bold;
+}
 /* -------------------------------------------------------- @MEDIA QUERY -------------------------------------------------------- */
 /* Aplica media querys para formato móvil desde 620px hasta 779px */
 @media (min-width: 620px) and (max-width: 779px) {
@@ -993,9 +1007,22 @@ a {
         text-align: left;
         width:300px;
     }
+    .modal-productos-col2-div {
+        display:flex;
+        justify-content: space-between;
+        align-items:center;
+    }
     .modal-productos-col2 {
         text-align: center;
         width:50px;
+    }
+    .modal-productos-col2-resta {
+        color:gray;
+        cursor:pointer;
+    }
+    .modal-productos-col2-suma {
+        color:gray;
+        cursor:pointer;
     }
     .modal-close {
         margin-left:44em;        
@@ -1019,13 +1046,51 @@ a {
         width:217px;
         margin-right: 10px
     }
+   
+    .container-carrito-fijo {
+        position:fixed;
+        bottom:70px;
+        right: 70px;
+    }
+    .carrito-fijo a {
+        display: block;
+        text-decoration: none;
+        background-color: green;
+        color:white;
+        width: 35px;
+        height: 35px;
+        line-height: 35px;
+        text-align: center;
+        border-radius:50%;
+        box-shadow: 0px 1px 10px rgba(0,0,0,0.4);
+        transition: all 500ms ease;
+        font-size: 1.5rem;
+    }
+    .carrito-fijo a:hover {
+        background-color: white;
+        color:green;
+    }
+    .carrito-contador {
+        display:none;
+        position: fixed;
+        top: 75vh;
+        right: 60px;
+        color:white;
+        text-align: center;
+        background-color: rgb(250, 112, 0);
+        border: 1px solid green;
+        border-radius: 50%;
+        height:20px;
+        width: 20px;
+        font-size: 15px;
+        font-weight: bold;
+    }
 }
 /* Aplica media querys para formato móvil desde 780px hasta 899px */
 @media (min-width: 780px) and (max-width: 899px) {
     .nav-1 {
         font-size:1.8rem;
     }
-    
     .modal-productos {
         font-size:0.9rem;
     }
@@ -1037,9 +1102,22 @@ a {
         text-align: left;
         width:300px;
     }
+    .modal-productos-col2-div {
+        display:flex;
+        justify-content: space-between;
+        align-items:center;
+    }
     .modal-productos-col2 {
         text-align: center;
         width:50px;
+    }
+    .modal-productos-col2-resta {
+        color:gray;
+        cursor:pointer;
+    }
+    .modal-productos-col2-suma {
+        color:gray;
+        cursor:pointer;
     }
     .modal-close {
         margin-left:44em;        
@@ -1063,12 +1141,54 @@ a {
         width:260px;
         margin-right: 10px
     }
+    .container-carrito-fijo {
+        position:fixed;
+        bottom:50px;
+        right: 40px;
+    }
+    .carrito-fijo a {
+        display: block;
+        text-decoration: none;
+        background-color: green;
+        color:white;
+        width: 35px;
+        height: 35px;
+        line-height: 35px;
+        text-align: center;
+        border-radius:50%;
+        box-shadow: 0px 1px 10px rgba(0,0,0,0.4);
+        transition: all 500ms ease;
+        font-size: 1.5rem;
+    }
+    .carrito-fijo a:hover {
+        background-color: white;
+        color:green;
+    }
+    .carrito-contador {
+        display:none;
+        position: fixed;
+        top: 79vh;
+        right: 32px;
+        color:white;
+        text-align: center;
+        background-color: rgb(250, 112, 0);
+        border: 1px solid green;
+        border-radius: 50%;
+        height:20px;
+        width: 20px;
+        font-size: 15px;
+        font-weight: bold;
+    }
 }
 /* Aplica media querys para formato Tablet PRODUCTOS desde 900px a 1199px */
 @media (min-width: 900px) and (max-width: 1199px) {
     .nav-1 {
         font-size: 2rem;
         padding-left:4em;
+    }
+    .carrito {
+        font-size: 40px;
+        margin-left: 10px;
     }
     .totales-carrito {
         display:flex;
@@ -1118,19 +1238,32 @@ a {
         margin-left:11em;
     }
     .modal-productos {
-        font-size:1.1rem;
+        font-size:0.9rem;
     }
     .modal-productos-img {
         width: 40px;
     }
     .modal-productos-col1 {
-        margin-left:1em;
+        margin-left:0.5em;
         text-align: left;
         width:300px;
+    }
+    .modal-productos-col2-div {
+        display:flex;
+        justify-content: space-between;
+        align-items: center;
     }
     .modal-productos-col2 {
         text-align: center;
         width:50px;
+    }
+    .modal-productos-col2-resta {
+        color:gray;
+        cursor:pointer;
+    }
+    .modal-productos-col2-suma {
+        color:gray;
+        cursor:pointer;
     }
     .modal-close {
         margin-left:56em;        
@@ -1153,6 +1286,44 @@ a {
         text-align: right;
         width:300px;
         margin-right: 10px
+    }
+    .container-carrito-fijo {
+        position:fixed;
+        bottom:50px;
+        right: 40px;
+    }
+    .carrito-fijo a {
+        display: block;
+        text-decoration: none;
+        background-color: green;
+        color:white;
+        width: 35px;
+        height: 35px;
+        line-height: 35px;
+        text-align: center;
+        border-radius:50%;
+        box-shadow: 0px 1px 10px rgba(0,0,0,0.4);
+        transition: all 500ms ease;
+        font-size: 1.5rem;
+    }
+    .carrito-fijo a:hover {
+        background-color: white;
+        color:green;
+    }
+    .carrito-contador {
+        display:none;
+        position: fixed;
+        top: 79vh;
+        right: 32px;
+        color:white;
+        text-align: center;
+        background-color: rgb(250, 112, 0);
+        border: 1px solid green;
+        border-radius: 50%;
+        height:20px;
+        width: 20px;
+        font-size: 15px;
+        font-weight: bold;
     }
 }
 /* Aplica media querys para formato Tablet PRODUCTOS desde 1200px a 1289px */
@@ -1181,6 +1352,44 @@ a {
     .totales-carrito:hover {
         cursor:pointer;
         opacity: 0.7;
+    }
+    .container-carrito-fijo {
+        position:fixed;
+        bottom:50px;
+        right: 40px;
+    }
+    .carrito-fijo a {
+        display: block;
+        text-decoration: none;
+        background-color: green;
+        color:white;
+        width: 35px;
+        height: 35px;
+        line-height: 35px;
+        text-align: center;
+        border-radius:50%;
+        box-shadow: 0px 1px 10px rgba(0,0,0,0.4);
+        transition: all 500ms ease;
+        font-size: 1.5rem;
+    }
+    .carrito-fijo a:hover {
+        background-color: white;
+        color:green;
+    }
+    .carrito-contador {
+        display:none;
+        position: fixed;
+        top: 79vh;
+        right: 32px;
+        color:white;
+        text-align: center;
+        background-color: rgb(250, 112, 0);
+        border: 1px solid green;
+        border-radius: 50%;
+        height:20px;
+        width: 20px;
+        font-size: 15px;
+        font-weight: bold;
     }
 }
 /* Aplica media querys para formato Tablet PRODUCTOS desde 1290px */
@@ -1223,6 +1432,10 @@ a {
     .nav-1 {
         font-size:2rem;
         padding-left:8em;
+    }
+    .carrito {
+        font-size: 45px;
+        margin-left: 10px;
     }
     .main-titulo {
         font-size: 3rem;
@@ -1272,32 +1485,50 @@ a {
         margin-left:12em;
     }
     .modal-productos {
-        font-size:1.3rem;
+        font-size:1rem;
     }
     .modal-productos-img {
         width: 50px;
     }
     .modal-productos-col1 {
-        margin-left:1em;
+        margin-left:0.5em;
         text-align: left;
         width:300px;
+    }
+    .modal-productos-col2-div {
+        display:flex;
+        justify-content: space-between;
+        align-items: center;
     }
     .modal-productos-col2 {
         text-align: center;
         width:50px;
+    }
+    .modal-productos-col2-resta {
+        color:gray;
+        cursor:pointer;
+    }
+    .modal-productos-col2-suma {
+        color:gray;
+        cursor:pointer;
+    }
+    .modal-productos-col3,
+    .modal-productos-col3Total {
+        text-align: right;
+        width:130px;
     }
     .modal-close {
         margin-left:56em;        
         padding: 0.4em 0.8em;
     }
     .modal-subtotal-carrito {
-        font-size:1.3rem;
+        font-size:1rem;
         padding: 0.5em 0.4em;
     }
     .modal-subtotal-carrito-1 {
         margin-left:1em;
         text-align: left;
-        width:335px;
+        width: 360px;
     }
     .modal-subtotal-carrito-2 {
         text-align: center;
@@ -1305,7 +1536,7 @@ a {
     }
     .modal-subtotal-carrito-3 {
         text-align: right;
-        width:288px;
+        width: 272px;
         margin-right: 10px
     }
     .totales-carrito {
@@ -1410,9 +1641,9 @@ a {
         display:flex;
         flex-direction: row;
         justify-content: center;
-        font-size:1rem;
+        font-size:0.8rem;
         font-weight: bold;
-        margin:1em 1em;
+        margin:0.6em 0.6em;
     }
     .total-fpago {
         display:flex;
@@ -1497,8 +1728,8 @@ a {
     }
     .container-carrito-fijo {
         position:fixed;
-        bottom:20px;
-        right: 20px;
+        bottom:30px;
+        right: 30px;
     }
     .carrito-fijo a {
         display: block;
@@ -1517,5 +1748,36 @@ a {
     .carrito-fijo a:hover {
         background-color: white;
         color:green;
+    }
+    .carrito-contador {
+        display:none;
+        position: fixed;
+        top:86vh;
+        right: 20px;
+        color:white;
+        text-align: center;
+        background-color: rgb(250, 112, 0);
+        padding: 0px;
+        border: 1px solid green;
+        border-radius: 50%;
+        height:35px;
+        width: 35px;
+        font-size: 20px;
+        font-weight: bold;
+    }
+    .carrito-contador-nav {
+        display:none;
+        color:white;
+        margin-top:0.4em;
+        margin-left:-1em;
+        text-align: center;
+        background-color: rgb(250, 112, 0);
+        padding: 0px;
+        border: 1px solid green;
+        border-radius: 50%;
+        height:25px;
+        width: 25px;
+        font-size: 15px;
+        font-weight: bold;
     }
 }

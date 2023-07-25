@@ -28,12 +28,13 @@
                     <p id="cierre-sesion" class="cerrar-sesion">Cerrar Sesión</p>
                 </div>
             </div>
-            
+
             <div class="nav-1">
                 <a id="nav-productos" class="item-nav activo" href="#">Productos</a></li>
                 <a id="nav-ofertas" class="item-nav" href="#">Ofertas</a></li>
                 <a class="item-nav carrito" href="index.html">
                     <i id="carrito" class="bi bi-cart4"></i>
+                    <span class="carrito-contador-nav">0</span>
                 </a>
             </div>
 
@@ -83,12 +84,12 @@
         </section>
 
         <!-- Formulario de Inicio de Sesión -->
-        <section id="modal-login" class = "modal-login">
+        <section id="modal-login" class="modal-login">
             <section class="modal-login-usuario">
                 <p class="modal-login-titulo">Iniciar Sesión</p>
                 <label class="modal-clase-usuario" for="">
                     <span class="modal-label">E-Mail</span>
-                    <input id="login-email" name = "login-email" type="text" placeholder="Escriba su E-Mail">
+                    <input id="login-email" name="login-email" type="text" placeholder="Escriba su E-Mail">
                 </label>
                 <label class="modal-clase-clave" for="">
                     <span class="modal-label">Clave</span>
@@ -101,24 +102,28 @@
         </section>
 
         <!-- Formulario de Alta de Nuevo Usuario -->
-        <section id="modal-nuevoUsuario" class = "modal-nuevoUsuario">
+        <section id="modal-nuevoUsuario" class="modal-nuevoUsuario">
             <section class="modal-nuevoUsuario-usuario">
                 <p class="modal-nuevoUsuario-titulo">Crear una Cuenta</p>
                 <label class="modal-clase-nuevoEmail" for="">
                     <span class="modal-label-nuevoUsuario">E-Mail</span>
-                    <input id="nuevoUsuario-email" name = "nuevoUsuario-email" type="text" placeholder="Escriba su E-Mail">
+                    <input id="nuevoUsuario-email" name="nuevoUsuario-email" type="text"
+                        placeholder="Escriba su E-Mail">
                 </label>
                 <label class="modal-clase-nuevoNombre" for="">
                     <span class="modal-label-nuevoNombre">Nombre</span>
-                    <input id="nuevoUsuario-nombre" name = "nuevoUsuario-nombre" type="text" placeholder="Escriba su Nombre">
+                    <input id="nuevoUsuario-nombre" name="nuevoUsuario-nombre" type="text"
+                        placeholder="Escriba su Nombre">
                 </label>
                 <label class="modal-clase-nuevaClave" for="">
                     <span class="modal-label-nuevoUsuario">Clave</span>
-                    <input id="nuevoUsuario-clave" name="nuevoUsuario-clave" type="password" placeholder="Escriba su clave">
+                    <input id="nuevoUsuario-clave" name="nuevoUsuario-clave" type="password"
+                        placeholder="Escriba su clave">
                 </label>
                 <label class="modal-clase-reIngreseClave" for="">
                     <span class="modal-label-nuevoUsuario">Reingrese la Clave</span>
-                    <input id="nuevoUsuario-reIngreseClave" name="nuevoUsuario-reIngreseClave" type="password" placeholder="Reingrese su clave">
+                    <input id="nuevoUsuario-reIngreseClave" name="nuevoUsuario-reIngreseClave" type="password"
+                        placeholder="Reingrese su clave">
                 </label>
                 <p id="errorLog-nuevoUsuario" class="errorLog-nuevoUsuario">..</p>
                 <button id="button-nuevoUsuario" class="button-nuevoUsuario">Crear Cuenta</button>
@@ -133,11 +138,11 @@
                     <h2>Carrito de Compras</h2>
                     <i class="bi bi-cart4 modal-container-titulo-carrito"></i>
                 </div>
-                
+
                 <div class="modal-subtotal-carrito">
-                        <span class="modal-subtotal-carrito-1">Total Productos:</span>
-                        <span class="modal-subtotal-carrito-2"></span>
-                        <span class="modal-subtotal-carrito-3"></span>
+                    <span class="modal-subtotal-carrito-1">Total Productos:</span>
+                    <span class="modal-subtotal-carrito-2"></span>
+                    <span class="modal-subtotal-carrito-3"></span>
                 </div>
                 <div class="modal-pie">
                     <button id="finalizar-compra" class="finalizar-compra">Finalizar Compra</button>
@@ -177,7 +182,7 @@
                     <div class="total-fpago">
 
                         <select class="formapago">
-                            
+
                         </select>
                         <p id="descripcion-fpago"></p>
                     </div>
@@ -200,8 +205,9 @@
             <div class="carrito-fijo">
                 <a href="#" class="bi bi-cart4"></a>
             </div>
-            
+            <span class="carrito-contador">0</span>
         </div>
+
     </main>
 
     <footer>
@@ -213,4 +219,5 @@
     <script src="./js/index.js" type="module"></script>
 
 </body>
+
 </html>
